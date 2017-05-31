@@ -2,6 +2,7 @@
 Dealing with digikam quirks
 
 * listall_digikam4.py db_name
+
   For a given sqlite database, list all album captions
 
 * list_digikam4.py  db_name [path_name]
