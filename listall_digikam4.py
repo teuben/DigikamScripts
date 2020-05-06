@@ -21,15 +21,15 @@ ars = cur1.fetchall()
 
 ncapt = 0
 for ar in ars:
-    print "#old ",ar[0], ar[1], ar[2], ar[3], ar[5]
+    print("#old ",ar[0], ar[1], ar[2], ar[3], ar[5])
     albumRoot = ar[0]
     cmd = 'SELECT * FROM Albums where albumRoot == %d AND caption IS NOT NULL' % albumRoot
     cur1.execute(cmd)
     rows = cur1.fetchall()
     for row in rows:
         ncapt += 1
-        print row[1],row[2],row[3],line1(row[4])
-print "# Found %d albums with a caption" % ncapt
+        print(row[1],row[2],row[3],line1(row[4]))
+print("# Found %d albums with a caption" % ncapt)
 
 nzero = 0
 for ar in ars:
@@ -39,6 +39,6 @@ for ar in ars:
     rows = cur1.fetchall()
     for row in rows:
         nzero += 1
-print "# Found %d albums with no caption" % nzero
+print("# Found %d albums with no caption" % nzero)
 
 con1.close()
