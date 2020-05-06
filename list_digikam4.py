@@ -30,13 +30,11 @@ def uuid_root(uuid):
     """
     #print(uuid)
     idx = uuid.find('=') + 1
-    f = os.popen('blkid --uuid %s' % uuid[idx:])
+    f = os.popen('blkid -U %s' % uuid[idx:])
     lines = f.readlines()
     f.close()
     #print(lines)
     dev = lines[0].strip()
-    #dev = os.popen('blkid --uuid ' % uuid[idx:]).readlines()[0].strip()
-    #print(dev)
     f = open('/etc/mtab')
     lines = f.readlines()
     for line in lines:
@@ -47,6 +45,7 @@ def uuid_root(uuid):
     
 albumRootNo = -1
 for ar in ars:
+    #print("#old ",ar[0], ar[1], ar[2], ar[3], ar[4], ar[5])    
     mountPoint =  uuid_root(ar[4])
     print("#old ",ar[0], ar[1], ar[2], ar[3], mountPoint, ar[5])
     if ar[5] == disk:
