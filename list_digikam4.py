@@ -86,6 +86,12 @@ if True:
     for row in rows:
         nzero += 1
         dirname = albumRoot + '/' + row[2]
+        captionName = "%s/.caption" % dirname
+        if os.path.isfile(captionName):
+            print("WARNING: We have a caption in ",captionName)
+            if False:
+                f = open(captionName,'r')
+                f.close()
         #print('CHECK',row[1],row[2],row[3])
         #print('CHECK',dirname)
     print("# Found %d albums with no caption" % nzero)
