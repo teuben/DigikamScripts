@@ -33,6 +33,8 @@ def uuid_root(uuid):
     f = os.popen('blkid -U %s' % uuid[idx:])
     lines = f.readlines()
     f.close()
+    if len(lines) == 0:
+        return "//"
     #print(lines)
     dev = lines[0].strip()
     f = open('/etc/mtab')
