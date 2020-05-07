@@ -21,7 +21,7 @@ def fexist(fname):
     f = os.path.isfile(fname)
     caption = None
     if f:
-        print '  ',fname
+        print('  ',fname)
         lines = open(fname).readlines()
         if len(lines) == 1:
             caption = lines[0].strip()
@@ -32,7 +32,7 @@ def fexist(fname):
                 if w[0] == 'description':
                     caption = caption + w[1].strip() + " "
         if len(caption) > 0:
-            print '  ',caption
+            print('  ',caption)
     return caption
 
 def frename(fname):
@@ -42,7 +42,7 @@ def frename(fname):
     if f:
         fname_new = fname + ".bck"
         cmd = "mv %s %s" % (fname,fname_new)
-        print "   CMD: ",cmd
+        print("   CMD: ",cmd)
         os.system(cmd)
 
 
@@ -60,15 +60,15 @@ cur1.execute('SELECT * FROM AlbumRoots')
 ars = cur1.fetchall()
 
 for ar in ars:
-    print "#old ",ar[0], ar[1], ar[2], ar[3], ar[5]
+    print("#old ",ar[0], ar[1], ar[2], ar[3], ar[5])
     if ar[5] == disk:
         albumRoot = ar[0]
 
 if albumRoot < 1:
-    print "No matching path to match for"
+    print("No matching path to match for")
     sys.exit(0)
 else:
-    print "# albumRoot = ",albumRoot
+    print("# albumRoot = ",albumRoot)
         
 if True:
     ncapt = 0
@@ -78,17 +78,17 @@ if True:
     for row in rows:
         ncapt += 1
         caption_old = line1(row[4])
-        print row[1],row[2],row[3],caption_old
+        print(row[1],row[2],row[3],caption_old)
         for f in fcheck:
             fname = disk + row[2] + '/' + f
             caption = fexist(fname)
             if caption is not None:
-                print "   ",caption
+                print("   ",caption)
                 caption = caption_old + " " + caption
                 cmd = 'UPDATE Albums set caption = "%s" where relativePath = "%s"' % (caption,row[2])
                 con1.execute(cmd)
                 frename(fname)
-    print "# Found %d albums with a caption" % ncapt
+    print("# Found %d albums with a caption" % ncapt)
 
 if True:
     nzero = 0
@@ -103,13 +103,13 @@ if True:
             fname = disk + row[2] + '/' + f
             caption = fexist(fname)
             if caption is not None:
-                print "   ",caption
+                print("   ",caption)
                 cmd = 'UPDATE Albums set caption = "%s" where relativePath = "%s"' % (caption,row[2])
                 con1.execute(cmd)
                 frename(fname)
-    print "# Found %d albums with no caption" % nzero
+    print("# Found %d albums with no caption" % nzero)
 
 con1.commit()
 n = con1.total_changes
-print "Total number of rows updated in %s : %d" % ( db1, n)
+print("Total number of rows updated in %s : %d" % ( db1, n))
 con1.close()
